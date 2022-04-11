@@ -1,5 +1,11 @@
 # SwiftUI-MVVM
 
-## STEP 1
+## 📖 Study Notes
 
-[Getting started with SwiftUI](https://shimmering-study-29c.notion.site/Getting-started-with-SwiftUI-ffe0ac4cc5df401baca338df3ca622b5)
+[이론 정리 링크로 이동 !](https://shimmering-study-29c.notion.site/SwiftUI-MVVM-10617a4b7d6642b8a709f5b99e80f33f)
+
+## Project 1
+
+### Memorize Game
+
+[Code](https://github.com/gen-com/SwiftUI-MVVM/tree/main/Memorize/Memorize)
