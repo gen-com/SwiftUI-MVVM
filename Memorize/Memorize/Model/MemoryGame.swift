@@ -25,7 +25,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    // MARK: - Function(s)
+    // MARK: - Method(s)
     
     mutating func choose(_ card: Card) {
         if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }),
@@ -54,9 +54,9 @@ extension MemoryGame {
     
     struct Card: Identifiable {
         
-        var id: Int
+        let id: Int
         var isFaceUp = false
         var isMatched = false
-        var content: CardContent
+        let content: CardContent
     }
 }

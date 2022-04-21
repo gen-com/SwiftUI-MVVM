@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemoryGameView.swift
 //  Memorize
 //
 //  Created by Byeongjo Koo on 2022/04/05.
@@ -7,18 +7,23 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
     
-    @ObservedObject var viewModel: EmojiMemoryGame
+    // MARK: - ViewModel
+    
+    @ObservedObject
+    var game: EmojiMemoryGame
+    
+    // MARK: - Body
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                ForEach(viewModel.cards, id: \.id) { card in
+                ForEach(game.cards, id: \.id) { card in
                     CardView(card: card)
                         .aspectRatio(2 / 3, contentMode: .fit)
                         .onTapGesture {
-                            viewModel.choose(card)
+                            game.choose(card)
                         }
                 }
             }
@@ -31,7 +36,11 @@ struct ContentView: View {
 
 struct CardView: View {
     
-    let card: MemoryGame<String>.Card
+    // MARK: - Property(ies)
+    
+    let card: EmojiMemoryGame.Card
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
@@ -53,7 +62,7 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         let game = EmojiMemoryGame()
-        ContentView(viewModel: game)
+        EmojiMemoryGameView(game: game)
             .preferredColorScheme(.light)
             .previewInterfaceOrientation(.portrait)
     }
