@@ -88,14 +88,14 @@
 		D5307DAA27FC354B002D6148 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				D5307DAF27FC354D002D6148 /* Assets.xcassets */,
+				D5307DAB27FC354B002D6148 /* MemorizeApp.swift */,
 				D5ED4E4B281160D50021B88A /* Extensions */,
 				D510647E27FF140D00AD7210 /* Model */,
 				D5C0BC49281AAB8D00CB567B /* Shape */,
 				D510648227FF166A00AD7210 /* View */,
-				D5C0BC4C281ABD7400CB567B /* ViewModifier */,
 				D510648127FF165C00AD7210 /* ViewModel */,
-				D5307DAB27FC354B002D6148 /* MemorizeApp.swift */,
-				D5307DAF27FC354D002D6148 /* Assets.xcassets */,
+				D5C0BC4C281ABD7400CB567B /* ViewModifier */,
 				D5307DB127FC354D002D6148 /* Preview Content */,
 			);
 			path = Memorize;

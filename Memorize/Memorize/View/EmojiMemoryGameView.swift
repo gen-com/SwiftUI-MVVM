@@ -24,17 +24,29 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            VStack {
-                gameBody
-                HStack {
-                    restart
-                    Spacer()
-                    shuffle
+            GeometryReader { geometry in
+                VStack {
+                    title
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.1, alignment: .center)
+                    gameBody
+                    HStack {
+                        restart
+                        Spacer()
+                        shuffle
+                    }
                 }
             }
             deckBody
         }
         .padding()
+    }
+    
+    var title: some View {
+        GeometryReader { geometry in
+            Text("Memorize!")
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.6))
+        }
     }
     
     var gameBody: some View {
