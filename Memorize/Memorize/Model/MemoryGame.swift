@@ -104,15 +104,15 @@ extension MemoryGame {
         }
         // percentage of the bonus time remaining
         var bonusRemaining: Double {
-            (bonusTimeLimit > 0 && bonusTimeRemaining > 0) ? bonusTimeRemaining/bonusTimeLimit : 0
+            (0 < bonusTimeLimit && 0 < bonusTimeRemaining) ? bonusTimeRemaining / bonusTimeLimit : 0
         }
         // whether the card was matched during the bonus time period
         var hasEarnedBonus: Bool {
-            isMatched && bonusTimeRemaining > 0
+            isMatched && 0 < bonusTimeRemaining
         }
         // whether we are currently face up, unmatched and have not yet used up the bonus window
         var isConsumingBonusTime: Bool {
-            isFaceUp && !isMatched && bonusTimeRemaining > 0
+            isFaceUp && !isMatched && 0 < bonusTimeRemaining
         }
         
         // called when the card transitions to face up state
