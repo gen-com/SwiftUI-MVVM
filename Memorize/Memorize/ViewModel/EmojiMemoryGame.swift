@@ -13,29 +13,61 @@ class EmojiMemoryGame: ObservableObject {
     
     // MARK: Property(ies)
     
-    private static let emojis = ["🚂", "✈️", "🚀", "🚗", "🚌", "🚑", "🚜", "🚒", "🛺", "🚤", "🛳", "🛰"]
-    private static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsOfCards: 6) { EmojiMemoryGame.emojis[$0] }
+    private(set) var matchingCards: [Card] = []
+    
+    // MARK: Static Method(s)
+    
+    private static func createMemoryGame(for theme: Theme) -> MemoryGame<String> {
+        MemoryGame<String>(numberOfPairsOfCards: theme.numberOfPairsOfCards) { theme.emojis[$0] }
     }
     
+    // MARK: - Model
+    
     @Published
-    private var model = createMemoryGame()
+    private var game: MemoryGame<String>
+    @Published
+    private var theme: Theme
     
     var cards: [Card] {
-        model.cards
+        game.cards
+    }
+    var themeNameString: String {
+        theme.name.rawValue
+    }
+    var themeColor: Theme.Color {
+        theme.color
+    }
+    
+    // MARK: - Initializer
+    
+    init(theme: Theme) {
+        self.theme = theme
+        game = EmojiMemoryGame.createMemoryGame(for: theme)
     }
     
     // MARK: - Intent(s)
     
+    /// Added a little trick to make sure matchingCards don't exceed 2 elements.
     func choose(_ card: Card) {
-        model.choose(card)
+        game.choose(card)
+        matchingCards.append(card)
+        if 2 < matchingCards.count {
+            matchingCards.removeAll()
+            matchingCards.append(card)
+        }
+    }
+    
+    func flipBack() {
+        game.flipBack(matchingCards)
+        matchingCards.removeAll()
     }
     
     func shuffle() {
-        model.shuffle()
+        game.shuffle()
     }
     
     func restart() {
-        model = EmojiMemoryGame.createMemoryGame()
+        theme = Theme()
+        game = EmojiMemoryGame.createMemoryGame(for: theme)
     }
 }

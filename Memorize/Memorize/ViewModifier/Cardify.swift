@@ -9,15 +9,21 @@ import SwiftUI
 
 struct Cardify: ViewModifier, Animatable {
     
-    init(isFaceUp: Bool) {
-        rotation = isFaceUp ? 0 : 180
-    }
+    // MARK: - Property(ies)
     
     var animatableData: Double {
         get { rotation }
         set { rotation = newValue }
     }
     var rotation: Double
+    
+    // MARK: - Initializer
+    
+    init(isFaceUp: Bool) {
+        rotation = isFaceUp ? 0 : 180
+    }
+    
+    // MARK: - Method(s)
     
     func body(content: Content) -> some View {
         ZStack {
@@ -35,12 +41,14 @@ struct Cardify: ViewModifier, Animatable {
     
     // MARK: - Constants
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         
         static let cornerRadius: CGFloat = 10
         static let lineWidth: CGFloat = 3
     }
 }
+
+// MARK: - View Extension
 
 extension View {
     
