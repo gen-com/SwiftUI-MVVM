@@ -14,7 +14,7 @@ extension Theme {
         case red
         case orange
         case blue
-        case black
+        case purple
         
         static func color(for themeName: Theme.Name) -> Color {
             let color: Color
@@ -24,7 +24,7 @@ extension Theme {
             case .sports:
                 color = .blue
             case .faces:
-                color = .black
+                color = .purple
             case .halloweens:
                 color = .orange
             }
