@@ -5,15 +5,12 @@
 //  Created by Byeongjo Koo on 2022/04/07.
 //
 
+import Combine
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
     typealias Card = MemoryGame<String>.Card
-    
-    // MARK: Property(ies)
-    
-    private(set) var matchingCards: [Card] = []
     
     // MARK: Static Method(s)
     
@@ -38,6 +35,14 @@ class EmojiMemoryGame: ObservableObject {
         theme.color
     }
     
+    var needFlipBackCards: AnyPublisher<[Card]?, Never> {
+        $game
+            .map({ game in
+                game.cards.filter({ $0.isFaceUp }).count == 2 ? game.cards.filter({ $0.isFaceUp }) : nil
+            })
+            .eraseToAnyPublisher()
+    }
+    
     // MARK: - Initializer
     
     init(theme: Theme) {
@@ -47,19 +52,21 @@ class EmojiMemoryGame: ObservableObject {
     
     // MARK: - Intent(s)
     
-    /// Added a little trick to make sure matchingCards don't exceed 2 elements.
+    var filpBackCancellable: AnyCancellable?
+    
     func choose(_ card: Card) {
         game.choose(card)
-        matchingCards.append(card)
-        if 2 < matchingCards.count {
-            matchingCards.removeAll()
-            matchingCards.append(card)
-        }
-    }
-    
-    func flipBack() {
-        game.flipBack(matchingCards)
-        matchingCards.removeAll()
+        
+        filpBackCancellable?.cancel()
+        filpBackCancellable = needFlipBackCards
+            .delay(for: .seconds(Constants.flipBackDelaySecond), scheduler: DispatchQueue.main)
+            .sink { [weak self] cards in
+                if let cards = cards {
+                    withAnimation {
+                        self?.game.flipBack(cards)
+                    }
+                }
+            }
     }
     
     func shuffle() {
@@ -69,5 +76,12 @@ class EmojiMemoryGame: ObservableObject {
     func restart() {
         theme = Theme()
         game = EmojiMemoryGame.createMemoryGame(for: theme)
+    }
+    
+    // MARK: - Constant(s)
+    
+    private enum Constants {
+        
+        static let flipBackDelaySecond = 2
     }
 }

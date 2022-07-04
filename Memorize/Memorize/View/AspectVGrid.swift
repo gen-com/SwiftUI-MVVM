@@ -11,9 +11,9 @@ struct AspectVGrid<Item, ItemView>: View where Item: Identifiable, ItemView: Vie
     
     // MARK: - Property(ies)
     
-    var items: [Item]
-    var aspectRatio: CGFloat
-    var content: (Item) -> ItemView
+    let items: [Item]
+    let aspectRatio: CGFloat
+    let content: (Item) -> ItemView
     
     // MARK: - Initializer
     

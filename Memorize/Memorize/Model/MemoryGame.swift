@@ -17,7 +17,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         set { cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0) } }
     }
     
-    // MARK: - Initializer
+    // MARK: - Initializer(s)
     
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> (CardContent)) {
         cards = []

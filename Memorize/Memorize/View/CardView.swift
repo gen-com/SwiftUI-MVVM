@@ -27,12 +27,12 @@ struct CardView: View {
                             startAngle: Angle(degreesFromTwelve: 0),
                             endAngle: Angle(degreesFromTwelve: (1 - animatedBonusRemaining) * 360)
                         )
-                            .onAppear {
-                                animatedBonusRemaining = card.bonusRemaining
-                                withAnimation(.linear(duration: card.bonusTimeRemaining)) {
-                                    animatedBonusRemaining = 0
-                                }
+                        .onAppear {
+                            animatedBonusRemaining = card.bonusRemaining
+                            withAnimation(.linear(duration: card.bonusTimeRemaining)) {
+                                animatedBonusRemaining = 0
                             }
+                        }
                     } else {
                         Pie(
                             startAngle: Angle(degreesFromTwelve: 0),
